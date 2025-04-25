@@ -309,7 +309,7 @@
       setTimeout(() => userMsg.remove(), 4000);
 
       //  YUNA 的回應
-      const response = await fetch("http://192.168.203.129:11434/api/generate", {
+      const response = await fetch("https://20c3-122-100-89-64.ngrok-free.app/api/generate", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -338,7 +338,7 @@ showYunaBubble(`YUNA：${reply}`, bubbleType);
     bubble.id = "yuna-bubble";
     bubble.innerText = text;
     bubble.style.position = "absolute";
-    bubble.style.top = "360px"; // 可以微調這裡，讓框框浮在頭頂正中上方
+    bubble.style.top = "360px"; //
     bubble.style.left = "20%";
     bubble.style.transform = "translateX(-50%)";
     bubble.style.background = "#fff";
