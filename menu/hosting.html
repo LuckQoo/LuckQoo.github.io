@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YUNA 虛擬主機</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: #0f0f0f;
+      color: #e6ffe6;
+      font-family: "Noto Sans TC", sans-serif;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hosting-card {
+      background: #1f1f1f;
+      border: 1px solid #33ffbb;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hosting-card:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 0 20px #33ffbb99;
+    }
+
+    canvas.matrix {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body class="p-6">
+
+  <canvas class="matrix"></canvas>
+
+  <div class="content">
+    <h1 class="text-4xl font-bold text-green-300 text-center mb-10"> 虛擬主機服務</h1>
+    <div class="max-w-4xl mx-auto">
+      <div class="hosting-card">
+        <h2 class="text-xl font-bold mb-1">🌐 入門方案</h2>
+        <p>適合小型網站或實驗性項目 支援 Linux 價格實惠。</p>
+      </div>
+      <div class="hosting-card">
+        <h2 class="text-xl font-bold mb-1">⚙️ 中階專案</h2>
+        <p>中量級應用與遊戲伺服器推薦 預設開放常用埠口</p>
+      </div>
+      <div class="hosting-card">
+        <h2 class="text-xl font-bold mb-1"> 暫無高階</h2>
+        <p> 高風險群 </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.querySelector(".matrix");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    const katakana = "アァイィウエオカキクケコサシスセソタチツテトナニヌネノ".split("");
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array.from({ length: columns }).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#33ffbb";
+      ctx.font = `${fontSize}px monospace`;
+      for (let i = 0; i < drops.length; i++) {
+        const text = katakana[Math.floor(Math.random() * katakana.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 33);
+  </script>
+
+</body>
+</html>

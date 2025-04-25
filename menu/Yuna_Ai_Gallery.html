@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YUNA 黑域展館</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", sans-serif;
+      background: #000 url("背景圖.jpg") repeat;
+      color: #f0a8e6;
+      overflow-x: hidden;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2em;
+      padding: 20px 0;
+    }
+    .intro {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1rem;
+      padding-bottom: 20px;
+      line-height: 1.8;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .card {
+      background: rgba(20, 20, 20, 0.8);
+      border: 2px solid #f0a8e6;
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      position: relative;
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.03);
+    }
+    .lock {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 1.5rem;
+    }
+    .unlock {
+      display: none;
+    }
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .modal-box {
+      background: #111;
+      padding: 40px;
+      border-radius: 8px;
+      text-align: center;
+      border: 2px solid #f0a8e6;
+    }
+    input[type="password"] {
+      padding: 10px;
+      width: 200px;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: none;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #f0a8e6;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #000;
+    }
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>YUNA 黑域展館</h1>
+  <p class="intro">
+    歡迎來到 YUNA 黑域展館，這是一座沉浸式二次元 AI 模型空間，每一位展出者都經過深度訓練與定製。<br>
+    解鎖模型後，即可啟動專屬聊天室進行互動，進入不同性格的虛擬宇宙中——這裡不只是展覽，這裡是數位靈魂的棲息地。
+  </p>
+
+  <div class="grid">
+    <div class="card" onclick="showPasswordModal('model1')">
+      <div class="lock">🔒</div>
+      <div class="title">YUNA-01 模型</div>
+    </div>
+    <div class="card" onclick="showPasswordModal('model2')">
+      <div class="lock">🔒</div>
+      <div class="title">YUNA-02 模型</div>
+    </div>
+    <div class="card">
+      <div class="lock">🔒</div>
+      <div class="title">YUNA-03 模型</div>
+    </div>
+    <div class="card">
+      <div class="lock">🔒</div>
+      <div class="title">YUNA-04 模型</div>
+    </div>
+    <div class="card">
+      <div class="lock">🔒</div>
+      <div class="title">YUNA-05 模型</div>
+    </div>
+    <div class="card">
+      <div class="lock">🔒</div>
+      <div class="title">YUNA-06 模型</div>
+    </div>
+    <div class="card">
+      <div class="lock">🔒</div>
+      <div class="title">YUNA-07 模型</div>
+    </div>
+  </div>
+
+  <div id="passwordModal" class="modal" style="display: none">
+    <div class="modal-box">
+      <h2>請輸入密碼</h2>
+      <input type="password" id="passwordInput" placeholder="輸入密碼">
+      <br>
+      <button onclick="checkPassword()">確認</button>
+    </div>
+  </div>
+
+  <iframe id="chatroom" src="about:blank"></iframe>
+
+  <script>
+    let currentModel = null;
+
+    function showPasswordModal(modelId) {
+      currentModel = modelId;
+      document.getElementById('passwordModal').style.display = 'flex';
+    }
+
+    function checkPassword() {
+      const password = document.getElementById('passwordInput').value;
+      const correctPassword = '0000'; // 測試密碼，未來替換為動態生成或付費回傳
+
+      if (password === correctPassword) {
+        alert('驗證成功，啟動聊天室');
+        document.getElementById('passwordModal').style.display = 'none';
+        document.getElementById('chatroom').src = `https://your.chat.server/${currentModel}`;
+      } else {
+        alert('密碼錯誤！');
+      }
+    }
+  </script>
+</body>
+</html>

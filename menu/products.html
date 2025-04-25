@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YUNA 商品介紹</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: #1a1a1a;
+      color: #fff;
+      font-family: "Noto Sans TC", sans-serif;
+      position: relative;
+      z-index: 1;
+    }
+    .card {
+      background: #2b2b2b;
+      border: 1px solid #ff89c1;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #ff89c1;
+    }
+    canvas.matrix {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="p-6">
+  <!-- 字雨背景 -->
+  <canvas class="matrix"></canvas>
+
+  <h1 class="text-4xl font-bold text-pink-400 text-center mb-10 relative z-10">YUNA 商品介紹</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+    <div class="card">
+      <h2 class="text-xl font-bold mb-2">🎀 YUNA 立牌</h2>
+      <p>就像保護神祖牌一樣，守護你的電腦桌！</p>
+    </div>
+  <script>
+    const canvas = document.querySelector(".matrix");
+    const ctx = canvas.getContext("2d");
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    const katakana = "アァイィウエオカキクケコサシスセソタチツテトナニヌネノ".split("");
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array.from({ length: columns }).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#ff99cc";
+      ctx.font = `${fontSize}px monospace`;
+      for (let i = 0; i < drops.length; i++) {
+        const text = katakana[Math.floor(Math.random() * katakana.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 33);
+  </script>
+</body>
+</html>
